@@ -68,7 +68,7 @@ def show_category(request, category_name_slug):
         context_dict['pages'] = None
     return render(request, 'rango/category.html', context=context_dict)
 
-@login_required   
+@login_required  
 def add_category(request):
     form = CategoryForm()
 
@@ -139,15 +139,21 @@ def register(request):
 
             if 'picture' in request.FILES:
                 profile.picture = request.FILES['picture']
-                profile.save()
-                registered = True
+
+            profile.save()
+            registered = True
+
         else:
             print(user_form.errors, profile_form.errors)
     else:
         user_form = UserForm()
         profile_form = UserProfileForm()
 
-    return render(request, 'rango/register.html', context = {'user_form': user_form, 'profile_form': profile_form, 'registered': registered})
+    return render(request,
+        'rango/register.html',
+        context = {'user_form': user_form,
+        'profile_form': profile_form,
+        'registered': registered})
 
 def user_login(request):
 
