@@ -25,6 +25,7 @@ def index(request):
     page_list = Page.objects.order_by('-views')[:5]
     context_dict['pages'] = page_list
 
+    request.session.set_test_cookie()
     return render(request, 'rango/index.html', context=context_dict)
 
     # return HttpResponse("Rango says hey there partner! \
@@ -33,6 +34,11 @@ def index(request):
 
 def about(request):
     context_dict = {'boldmessage': 'This tutorial has been put together by Callum Graham'}
+    
+    if request.session.test_cookie_worked():
+        print("TEST COOKIE WORKED!")
+        request.session.delete_test_cookie()
+    
     return render(request, 'rango/about.html', context=context_dict)
     
     
